@@ -41,7 +41,7 @@
       {
         "type": "virtualbox-iso",
         "boot_command": [
-          "<tab><bs><bs><bs><bs><bs>net.ifnames=0 text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+          "<tab><bs><bs><bs><bs><bs>text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
         ],
         "boot_wait": "{{ user `boot_wait` }}",
         "disk_size": "{{ user `disk_size` }}",
