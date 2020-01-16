@@ -13,7 +13,7 @@
   - name: Alias vi to vim
     lineinfile:
       path: /root/.bashrc
-      line: "alias vi='vim''"
+      line: "alias vi='vim'"
       state: present
 
   - name: Create vim configuration file
