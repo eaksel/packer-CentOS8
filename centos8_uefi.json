@@ -1,0 +1,88 @@
+{
+  "variables": {
+      "boot_wait": "5s",
+      "disk_size": "40960",
+      "iso_checksum_type": "sha256",
+      "iso_checksum": "7fea13202bf2f26989df4175aace8fdc16e1137f7961c33512cbfad844008948",
+      "iso_url": "http://miroir.univ-paris13.fr/centos/8/isos/x86_64/CentOS-8.1.1911-x86_64-boot.iso",
+      "memsize": "1024",
+      "numvcpus": "1",
+      "ssh_password" : "packer",
+      "ssh_username" : "packer",
+      "vm_name": "CentOS-8-x86_64-1911"
+    },
+    "builders": [
+      {
+        "type": "vmware-iso",
+        "boot_command": ["e<down><down><end><bs><bs><bs><bs><bs>text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<leftCtrlOn>x<leftCtrlOff>"],
+        "boot_wait": "{{ user `boot_wait` }}",
+        "disk_size": "{{ user `disk_size` }}",
+        "disk_type_id": "0",
+        "guest_os_type": "centos-64",
+        "headless": false,
+        "http_directory": "http",
+        "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+        "iso_checksum": "{{ user `iso_checksum` }}",
+        "iso_url": "{{ user `iso_url` }}",
+        "shutdown_command": "echo 'packer'|sudo -S /sbin/halt -h -p",
+        "ssh_password": "{{ user `ssh_password` }}",
+        "ssh_port": 22,
+        "ssh_username": "{{ user `ssh_username` }}",
+        "ssh_wait_timeout": "10000s",
+        "vm_name": "{{ user `vm_name` }}",
+        "vmx_data": {
+          "memsize": "{{ user `memsize` }}",
+          "numvcpus": "{{ user `numvcpus` }}",
+          "virtualHW.version": "14",
+          "firmware": "efi"
+        }
+      },
+      {
+        "type": "virtualbox-iso",
+        "boot_command": ["e<down><down><end><bs><bs><bs><bs><bs>text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<leftCtrlOn>x<leftCtrlOff>"],
+        "boot_wait": "{{ user `boot_wait` }}",
+        "disk_size": "{{ user `disk_size` }}",
+        "guest_os_type": "RedHat_64",
+        "headless": false,
+        "http_directory": "http",
+        "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+        "iso_checksum": "{{ user `iso_checksum` }}",
+        "iso_url": "{{ user `iso_url` }}",
+        "shutdown_command": "echo 'packer'|sudo -S /sbin/halt -h -p",
+        "ssh_password": "{{ user `ssh_password` }}",
+        "ssh_port": 22,
+        "ssh_username": "{{ user `ssh_username` }}",
+        "ssh_wait_timeout": "10000s",
+        "vm_name": "{{ user `vm_name` }}",
+        "iso_interface": "sata",
+        "vboxmanage": [
+          ["modifyvm", "{{.Name}}", "--memory", "{{ user `memsize` }}"],
+          ["modifyvm", "{{.Name}}", "--cpus", "{{ user `numvcpus` }}"],
+          ["modifyvm", "{{.Name}}", "--firmware", "EFI"]
+        ]
+      }
+    ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'packer'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "inline": [
+        "dnf -y update",
+        "dnf -y install python3",
+        "alternatives --set python /usr/bin/python3",
+        "pip3 install ansible"
+      ]
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "scripts/setup.yml"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'packer'|{{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "scripts": [
+        "scripts/cleanup.sh"
+      ]
+    }
+  ]
+}
