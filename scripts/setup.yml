@@ -88,6 +88,9 @@
       - dkms
       - kernel-devel
       - kernel-headers
+      - gcc
+      - make
+      - perl
     when:
       - ansible_os_family == "RedHat"
       - ansible_virtualization_type == "virtualbox"
@@ -121,6 +124,6 @@
     dnf:
       name: open-vm-tools
       state: latest
-    when: 
+    when:
       - ansible_os_family == "RedHat"
       - ansible_virtualization_type == "VMware"
