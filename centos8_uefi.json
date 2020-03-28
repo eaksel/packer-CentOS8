@@ -28,7 +28,7 @@
         "ssh_password": "{{ user `ssh_password` }}",
         "ssh_port": 22,
         "ssh_username": "{{ user `ssh_username` }}",
-        "ssh_wait_timeout": "10000s",
+        "ssh_timeout": "30m",
         "vm_name": "{{ user `vm_name` }}",
         "vmx_data": {
           "memsize": "{{ user `memsize` }}",
@@ -52,7 +52,7 @@
         "ssh_password": "{{ user `ssh_password` }}",
         "ssh_port": 22,
         "ssh_username": "{{ user `ssh_username` }}",
-        "ssh_wait_timeout": "10000s",
+        "ssh_timeout": "30m",
         "vm_name": "{{ user `vm_name` }}",
         "iso_interface": "sata",
         "vboxmanage": [
