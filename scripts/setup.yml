@@ -111,7 +111,7 @@
   - name: Umount VBoxGuestAdditions.iso
     mount:
       path: /mnt
-      state: unmounted
+      state: absent
     when: ansible_virtualization_type == "virtualbox"
 
   - name: Delete VBoxGuestAdditions.iso
