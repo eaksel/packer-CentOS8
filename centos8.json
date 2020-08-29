@@ -3,13 +3,13 @@
       "boot_wait": "5s",
       "disk_size": "40960",
       "iso_checksum_type": "sha256",
-      "iso_checksum": "7fea13202bf2f26989df4175aace8fdc16e1137f7961c33512cbfad844008948",
-      "iso_url": "http://miroir.univ-paris13.fr/centos/8/isos/x86_64/CentOS-8.1.1911-x86_64-boot.iso",
+      "iso_checksum": "c67876a5602faa17f68b40ccf2628799b87454aa67700f0f57eec15c6ccdd98c",
+      "iso_url": "http://miroir.univ-paris13.fr/centos/8/isos/x86_64/CentOS-8.2.2004-x86_64-boot.iso",
       "memsize": "1024",
       "numvcpus": "1",
       "ssh_password" : "packer",
       "ssh_username" : "packer",
-      "vm_name": "CentOS-8-x86_64-1911"
+      "vm_name": "CentOS-8-x86_64-2004"
     },
     "builders": [
       {
