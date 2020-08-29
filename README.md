@@ -46,12 +46,12 @@ You can change the URL to one closer to your build server. To do so change the *
 
 ## Keyboard configuration
 
-By default the keyboard is set to be french azerty.
+By default the keyboard is set to be US qwerty.
 To switch it to something else edit the following file:
 
 - ./http/ks.cfg
 
-Set the `keyboard` parameter as desired.
+Set the `keyboard` parameter as desired, for example: `keyboard --vckeymap=fr --xlayouts='fr'`
 
 ## Default credentials
 
